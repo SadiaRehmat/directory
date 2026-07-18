@@ -46,4 +46,17 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    //User has  One to one relationship with doctor
+    public function doctor()
+    {
+        return $this->hasOne(Doctor::class);
+    }
+
+    //Patient has  One to one relationship with doctor
+    public function patient()
+    {
+        return $this->hasOne(Patient::class);
+    }
 }

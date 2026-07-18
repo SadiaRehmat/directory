@@ -7,4 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Review extends Model
 {
     //
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class);
+    }
+
+    public function patient()
+    {
+        return $this->belongsTo(Patient::class);
+    }
 }
