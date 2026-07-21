@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
 use App\Http\Controllers\Patient\DashboardController as PatientDashboardController;
+use App\Http\Controllers\Auth\DoctorRegistrationController as DoctorRegistrationController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -39,6 +40,16 @@ Route::middleware(['auth', 'patient'])->group(function () {
 
     Route::get('/patient/dashboard', [PatientDashboardController::class, 'index'])
         ->name('patient.dashboard');
+
+});
+
+Route::middleware('guest')->group(function () {  //loggedin user can't access
+
+    Route::get('/doctor/register', [DoctorRegistrationController::class, 'create'])
+        ->name('doctor.register');
+
+    Route::post('/doctor/register', [DoctorRegistrationController::class, 'store'])
+        ->name('doctor.register.store');
 
 });
 
