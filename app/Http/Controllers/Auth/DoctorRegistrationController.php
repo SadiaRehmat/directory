@@ -1,7 +1,11 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
+use App\Models\Doctor;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -35,6 +39,26 @@ class DoctorRegistrationController extends Controller
 
         ]);
 
-        dd($validated);
+        $user = User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => Hash::make($validated['password']),
+            'role' => 'doctor',
+        ]);
+
+        Doctor::create([
+            'user_id' => $user->id,
+            'specialization_id' => $validated['specialization_id'],
+            'qualification' => $validated['qualification'],
+            'experience' => $validated['experience'],
+            'consultation_fee' => $validated['consultation_fee'],
+            'phone' => $validated['phone'],
+            'city' => $validated['city'],
+            'address' => $validated['address'],
+            'about' => $validated['about'],
+        ]);
+        event(new Registered($user));
+        Auth::login($user);
+        return redirect()->route('doctor.dashboard');
     }
 }
