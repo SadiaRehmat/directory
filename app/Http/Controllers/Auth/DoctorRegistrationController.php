@@ -2,19 +2,23 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Specialization;
 use App\Models\Doctor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Auth\Events\Registered;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class DoctorRegistrationController extends Controller
 {
     //
     public function create()
     {
-        return view('auth.doctor-register');
+        $specializations = Specialization::all(); //Eloquent query
+        // return the whole table data as array to view 
+        return view('auth.doctor-register', compact('specializations'));
     }
 
 
@@ -39,26 +43,35 @@ class DoctorRegistrationController extends Controller
 
         ]);
 
-        $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'role' => 'doctor',
-        ]);
 
-        Doctor::create([
-            'user_id' => $user->id,
-            'specialization_id' => $validated['specialization_id'],
-            'qualification' => $validated['qualification'],
-            'experience' => $validated['experience'],
-            'consultation_fee' => $validated['consultation_fee'],
-            'phone' => $validated['phone'],
-            'city' => $validated['city'],
-            'address' => $validated['address'],
-            'about' => $validated['about'],
-        ]);
-        event(new Registered($user));
-        Auth::login($user);
-        return redirect()->route('doctor.dashboard');
+        //  It will either save data in both tables or do nothing
+        DB::transaction(function () use ($validated) {
+
+            // Create User
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'password' => Hash::make($validated['password']),
+                'role' => 'doctor',
+            ]);
+
+            // Create Doctor
+            Doctor::create([
+                'user_id' => $user->id,
+                'specialization_id' => $validated['specialization_id'],
+                'qualification' => $validated['qualification'],
+                'experience' => $validated['experience'],
+                'consultation_fee' => $validated['consultation_fee'],
+                'phone' => $validated['phone'],
+                'city' => $validated['city'],
+                'address' => $validated['address'],
+                'about' => $validated['about'],
+            ]);
+            event(new Registered($user));
+            Auth::login($user);
+            return redirect()->route('doctor.dashboard');
+
+        });
+
     }
 }

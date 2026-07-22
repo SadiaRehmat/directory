@@ -36,12 +36,14 @@
         <div class="mt-4">
             <x-input-label for="specialization_id" :value="__('Specialization')" />
 
-            <select id="specialization_id" name="specialization_id"
-                class="block mt-1 w-full rounded-md border-gray-300">
+            <select name="specialization_id">
                 <option value="">Select Specialization</option>
-                <option value="1">Cardiologist</option>
-                <option value="2">Dermatologist</option>
-                <option value="3">Dentist</option>
+
+                @foreach($specializations as $specialization)
+                    <option value="{{ $specialization->id }}">
+                        {{ $specialization->name }}
+                    </option>
+                @endforeach
             </select>
 
             <x-input-error :messages="$errors->get('specialization_id')" class="mt-2" />
