@@ -18,7 +18,7 @@ class DoctorController extends Controller
     public function approve(Doctor $doctor)
     {
         $doctor->update([
-            'status' => 'approved',
+            'status' => true,
         ]);
 
         return redirect()->route('admin.doctors.index')
