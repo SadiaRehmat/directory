@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
 use App\Http\Controllers\Patient\DashboardController as PatientDashboardController;
 use App\Http\Controllers\Auth\DoctorRegistrationController as DoctorRegistrationController;
+use App\Http\Controllers\Admin\DoctorController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -51,6 +52,11 @@ Route::middleware('guest')->group(function () {  //loggedin user can't access
     Route::post('/doctor/register', [DoctorRegistrationController::class, 'store'])
         ->name('doctor.register.store');
 
+
+    Route::get('/admin/doctors', [DoctorController::class, 'index'])
+        ->name('admin.doctors.index');
+
 });
+
 
 require __DIR__ . '/auth.php';
