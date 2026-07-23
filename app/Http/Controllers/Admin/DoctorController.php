@@ -15,4 +15,13 @@ class DoctorController extends Controller
 
         return view('admin.doctors.index', compact('doctors'));
     }
+    public function approve(Doctor $doctor)
+    {
+        $doctor->update([
+            'status' => 'approved',
+        ]);
+
+        return redirect()->route('admin.doctors.index')
+            ->with('success', 'Doctor approved successfully.');
+    }
 }

@@ -53,10 +53,16 @@ Route::middleware('guest')->group(function () {  //loggedin user can't access
         ->name('doctor.register.store');
 
 
-    Route::get('/admin/doctors', [DoctorController::class, 'index'])
-        ->name('admin.doctors.index');
+  
 
 });
+
+  Route::get('/admin/doctors', [DoctorController::class, 'index'])
+        ->name('admin.doctors.index');
+
+// Approve doctor route
+Route::patch('/admin/doctors/{doctor}/approve', [DoctorController::class, 'approve'])
+    ->name('admin.doctors.approve');
 
 
 require __DIR__ . '/auth.php';

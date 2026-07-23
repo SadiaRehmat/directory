@@ -1,4 +1,9 @@
 <h2>Doctors</h2>
+@if(session('success'))
+    <div style="color: green; margin-bottom: 15px;">
+        {{ session('success') }}
+    </div>
+@endif
 
 <table border="1">
 
@@ -25,15 +30,16 @@
             <td>{{ $doctor->consultation_fee }}</td>
             <td>{{ $doctor->city }}</td>
             <td>{{ ucfirst($doctor->status) }}</td>
-            <td>
-                @if($doctor->status == 'pending')
-                    <span style="color:orange;">Pending</span>
-                @elseif($doctor->status == 'approved')
-                    <span style="color:green;">Approved</span>
-                @else
-                    <span style="color:red;">Rejected</span>
-                @endif
-            </td>
+            <td><a href="#">Pending</a><a href="#">
+                    <form action="{{ route('admin.doctors.approve', $doctor) }}" method="POST" style="display:inline;">
+                        @csrf
+                        @method('PATCH')
+
+                        <button type="submit">
+                            Approve
+                        </button>
+                    </form>
+                </a><a href="#">Rejected</a></td>
         </tr>
     @empty
 
