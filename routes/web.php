@@ -69,5 +69,10 @@ Route::patch('/admin/doctors/{doctor}/approve', [DoctorController::class, 'appro
 Route::get('/admin/doctors/{doctor}', [DoctorController::class, 'show'])
     ->name('admin.doctors.show');
 
+// Pending doctor soute
+Route::get('/doctor/pending', function () {
+    return view('doctor.pending');
+})->middleware(['auth', 'doctor'])->name('doctor.pending');
+
 
 require __DIR__ . '/auth.php';

@@ -8,8 +8,14 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     //
+
     public function index()
-{
-    return view('doctor.dashboard');
-}
+    {
+        // Updated
+        if (!auth()->user()->doctor->status) {
+            return redirect()->route('doctor.pending');
+        }
+
+        return view('doctor.dashboard');
+    }
 }

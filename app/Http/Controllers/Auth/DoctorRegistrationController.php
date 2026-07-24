@@ -45,7 +45,7 @@ class DoctorRegistrationController extends Controller
 
 
         //  It will either save data in both tables or do nothing
-        DB::transaction(function () use ($validated) {
+       return DB::transaction(function () use ($validated) {
 
             // Create User
             $user = User::create([
