@@ -15,6 +15,8 @@ class DoctorController extends Controller
 
         return view('admin.doctors.index', compact('doctors'));
     }
+
+    // Admin approves doctor
     public function approve(Doctor $doctor)
     {
         $doctor->update([
@@ -23,5 +25,13 @@ class DoctorController extends Controller
 
         return redirect()->route('admin.doctors.index')
             ->with('success', 'Doctor approved successfully.');
+    }
+
+    // Show doctors to admin
+    public function show(Doctor $doctor)
+    {
+        $doctor->load(['user', 'specialization']);
+
+        return view('admin.doctors.show', compact('doctor'));
     }
 }
