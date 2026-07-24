@@ -30,7 +30,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
 });
 
-Route::middleware(['auth', 'doctor'])->group(function () {
+Route::middleware(['auth', 'doctor', 'approved'])->group(function () {
 
     Route::get('/doctor/dashboard', [DoctorDashboardController::class, 'index'])
         ->name('doctor.dashboard');

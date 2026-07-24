@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'doctor' => \App\Http\Middleware\DoctorMiddleware::class,
             'patient' => \App\Http\Middleware\PatientMiddleware::class,
+            'approved' => \App\Http\Middleware\EnsureDoctorIsApproved::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
