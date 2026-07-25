@@ -16,4 +16,19 @@ class DoctorDirectoryController extends Controller
 
     return view('doctor.index', compact('doctors'));
 }
+
+public function show(Doctor $doctor)
+{
+    if (!$doctor->status) {
+        abort(404);
+    }
+
+    $doctor->load([
+        'user',
+        'specialization',
+        'reviews.patient.user',
+    ]);
+
+    return view('doctor.show', compact('doctor'));
+}
 }
