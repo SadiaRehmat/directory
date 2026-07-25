@@ -7,6 +7,7 @@ use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController
 use App\Http\Controllers\Patient\DashboardController as PatientDashboardController;
 use App\Http\Controllers\Auth\DoctorRegistrationController as DoctorRegistrationController;
 use App\Http\Controllers\Admin\DoctorController;
+use App\Http\Controllers\DoctorDirectoryController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -73,6 +74,13 @@ Route::get('/admin/doctors/{doctor}', [DoctorController::class, 'show'])
 Route::get('/doctor/pending', function () {
     return view('doctor.pending');
 })->middleware(['auth', 'doctor'])->name('doctor.pending');
+
+// Get doctors (even if not logged in)
+Route::get('/doctors', [DoctorDirectoryController::class, 'index'])
+    ->name('doctors.index');
+
+Route::get('/doctors/{doctor}', [DoctorDirectoryController::class, 'show'])
+    ->name('doctors.show');
 
 
 require __DIR__ . '/auth.php';
