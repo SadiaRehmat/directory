@@ -1,34 +1,39 @@
+<form action="{{ route('doctors.index') }}" method="GET">
 
+    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by doctor or city">
 
-    <h1>Find Doctors</h1>
+    <button type="submit">
+        Search
+    </button>
 
-    @forelse($doctors as $doctor)
+</form>
+<h1>Find Doctors</h1>
 
-        <hr>
+@forelse($doctors as $doctor)
 
-        <h2>{{ $doctor->user->name }}</h2>
+    <hr>
 
-        <p>
-            {{ $doctor->specialization->name }}
-        </p>
+    <h2>{{ $doctor->user->name }}</h2>
 
-        <p>
-            {{ $doctor->city }}
-        </p>
+    <p>
+        {{ $doctor->specialization->name }}
+    </p>
 
-        <p>
-            {{ $doctor->experience }} Years Experience
-        </p>
+    <p>
+        {{ $doctor->city }}
+    </p>
 
-        <a href="{{ route('doctors.show', $doctor) }}">
-            View Profile
-        </a>
+    <p>
+        {{ $doctor->experience }} Years Experience
+    </p>
 
-    @empty
+    <a href="{{ route('doctors.show', $doctor) }}">
+        View Profile
+    </a>
 
-        <p>No doctors available.</p>
+@empty
 
-    @endforelse
+    <p>No doctors available.</p>
 
-    {{ $doctors->links() }}
-
+@endforelse
+{{ $doctors->withQueryString()->links() }}
