@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController;
 use App\Http\Controllers\Patient\DashboardController as PatientDashboardController;
+use App\Http\Controllers\Patient\AppointmentController as AppointmentController;
 use App\Http\Controllers\Auth\DoctorRegistrationController as DoctorRegistrationController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\DoctorDirectoryController;
@@ -82,5 +83,15 @@ Route::get('/doctors', [DoctorDirectoryController::class, 'index'])
 Route::get('/doctors/{doctor}', [DoctorDirectoryController::class, 'show'])
     ->name('doctors.show');
 
+// Appointment routes
+    Route::middleware(['auth', 'patient'])->group(function () {
+
+    Route::get('/appointments/create/{doctor}', [AppointmentController::class, 'create'])
+        ->name('appointments.create');
+
+    Route::post('/appointments', [AppointmentController::class, 'store'])
+        ->name('appointments.store');
+
+});
 
 require __DIR__ . '/auth.php';
