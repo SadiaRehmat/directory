@@ -40,7 +40,6 @@
 
 @endforelse
 
-
-<button disabled>
+<a href="{{ route('appointments.create', $doctor) }}">
     Book Appointment
-</button>
+</a>
