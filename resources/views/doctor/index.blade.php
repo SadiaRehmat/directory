@@ -7,6 +7,39 @@
     </button>
 
 </form>
+<form method="GET" action="{{ route('doctors.index') }}">
+
+    <input
+        type="text"
+        name="search"
+        value="{{ request('search') }}"
+        placeholder="Search">
+
+    <select name="specialization">
+
+        <option value="">
+            All Specializations
+        </option>
+
+        @foreach($specializations as $specialization)
+
+            <option
+                value="{{ $specialization->id }}"
+                @selected(request('specialization') == $specialization->id)>
+
+                {{ $specialization->name }}
+
+            </option>
+
+        @endforeach
+
+    </select>
+
+    <button type="submit">
+        Filter
+    </button>
+
+</form>
 <h1>Find Doctors</h1>
 
 @forelse($doctors as $doctor)
