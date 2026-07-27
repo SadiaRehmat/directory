@@ -41,5 +41,5 @@
 @endforelse
 
 <a href="{{ route('appointments.create', $doctor) }}">
-    Book Appointment
+    Book Appointment Now
 </a>
