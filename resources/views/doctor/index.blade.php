@@ -2,17 +2,10 @@
 
     <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by doctor or city">
 
-    <button type="submit">
-        Search
-    </button>
+  
 
 
 
-    <input
-        type="text"
-        name="search"
-        value="{{ request('search') }}"
-        placeholder="Search">
 
     <select name="specialization">
 
@@ -35,7 +28,7 @@
     </select>
 
     <button type="submit">
-        Filter
+        Search
     </button>
 
 </form>
