@@ -25,7 +25,7 @@
 
     <strong>{{ $review->patient->user->name }}</strong>
 
-    Rating:
+    <b>Rating:</b>
     {{ $review->rating }}/5
 
     <br>

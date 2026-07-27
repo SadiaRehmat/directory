@@ -2,7 +2,7 @@
 
     <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by doctor or city">
 
-  
+
 
 
 
@@ -15,9 +15,7 @@
 
         @foreach($specializations as $specialization)
 
-            <option
-                value="{{ $specialization->id }}"
-                @selected(request('specialization') == $specialization->id)>
+            <option value="{{ $specialization->id }}" @selected(request('specialization') == $specialization->id)>
 
                 {{ $specialization->name }}
 
@@ -37,7 +35,7 @@
 @forelse($doctors as $doctor)
 
     <hr>
-
+     
     <h2>{{ $doctor->user->name }}</h2>
 
     <p>
