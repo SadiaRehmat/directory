@@ -6,8 +6,7 @@
         Search
     </button>
 
-</form>
-<form method="GET" action="{{ route('doctors.index') }}">
+
 
     <input
         type="text"
