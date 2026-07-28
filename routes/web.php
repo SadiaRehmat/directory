@@ -94,4 +94,8 @@ Route::get('/doctors/{doctor}', [DoctorDirectoryController::class, 'show'])
 
 });
 
+// Patient appointment route
+Route::get('/patient/appointments', [AppointmentController::class, 'index'])
+    ->name('patient.appointments.index');
+
 require __DIR__ . '/auth.php';
