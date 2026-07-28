@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Patient;
 use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,6 +12,13 @@ class AppointmentController extends Controller
 {
     //
 
+    public function index(Request $request)
+    {
+        $appointments = auth()->user()->patient
+        ->appointments()->with(['doctor.user', 'doctor.specialization'])
+        ->latest()->paginate(10);
+        return view('patient.appointments', compact('appointments'));
+    }
     public function create(Doctor $doctor)
     {
         return view('appointments.create', compact('doctor'));
