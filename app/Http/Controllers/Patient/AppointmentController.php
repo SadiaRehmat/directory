@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Patient;
 use App\Models\Doctor;
-
-use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 
 class AppointmentController extends Controller
 {
@@ -14,4 +15,6 @@ class AppointmentController extends Controller
 {
     return view('appointments.create', compact('doctor'));
 }
+
+
 }
