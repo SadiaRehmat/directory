@@ -7,6 +7,7 @@ use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController
 use App\Http\Controllers\Patient\DashboardController as PatientDashboardController;
 use App\Http\Controllers\Patient\AppointmentController as AppointmentController;
 use App\Http\Controllers\Auth\DoctorRegistrationController as DoctorRegistrationController;
+use App\Http\Controllers\Auth\PatientRegistrationController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\DoctorDirectoryController;
 
@@ -84,7 +85,7 @@ Route::get('/doctors/{doctor}', [DoctorDirectoryController::class, 'show'])
     ->name('doctors.show');
 
 // Appointment routes
-    Route::middleware(['auth', 'patient'])->group(function () {
+Route::middleware(['auth', 'patient'])->group(function () {
 
     Route::get('/appointments/create/{doctor}', [AppointmentController::class, 'create'])
         ->name('appointments.create');
@@ -97,5 +98,19 @@ Route::get('/doctors/{doctor}', [DoctorDirectoryController::class, 'show'])
 // Patient appointment route
 Route::get('/patient/appointments', [AppointmentController::class, 'index'])
     ->name('patient.appointments.index');
+
+
+// Patient registration
+Route::middleware('guest')->group(function () {
+
+    Route::get('/register/patient', [PatientRegistrationController::class, 'create'])
+        ->name('patient.register');
+
+    Route::post('/register/patient', [PatientRegistrationController::class, 'store'])
+        ->name('patient.register.store');
+
+});
+
+
 
 require __DIR__ . '/auth.php';
