@@ -8,4 +8,8 @@ use Illuminate\Http\Request;
 class PatientRegistrationController extends Controller
 {
     //
+    public function create()
+{
+    return view('auth.patient-register');
+}
 }
