@@ -56,7 +56,7 @@
 
 @empty
 
-    <p>No doctors available.</p>
+    <p style="background-color: red;">No doctors available.</p>
 
 @endforelse
 {{ $doctors->withQueryString()->links() }}
