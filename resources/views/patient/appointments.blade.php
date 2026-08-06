@@ -41,7 +41,7 @@
 
                 <tr>
 
-                    <td colspan="5">
+                    <td colspan="5" style="background-color: blue; padding: 10px; border-radius: 10px;">
                         No appointments found.
                     </td>
 
