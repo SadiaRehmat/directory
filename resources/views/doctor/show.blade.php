@@ -36,7 +36,7 @@
 
 @empty
 
-    <p>No reviews yet.</p>
+    <p style="background-color: skyblue; padding: 10px; border-radius: 10px;">No reviews yet.</p>
 
 @endforelse
 
