@@ -33,6 +33,8 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+
+   
 });
 
 Route::middleware('auth')->group(function () {
@@ -58,7 +60,4 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 
-// Resgiter route
-Route::get('/register', function () {
-    return view('auth.choose-account');
-})->middleware('guest')->name('register');
+

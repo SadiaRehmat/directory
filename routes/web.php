@@ -111,6 +111,11 @@ Route::middleware('guest')->group(function () {
 
 });
 
+// Resgiter route
+Route::get('/register', function () {
+    return view('auth.choose-account');
+})->middleware('guest')->name('register');
+
 
 
 require __DIR__ . '/auth.php';
