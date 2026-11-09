@@ -44,6 +44,11 @@ Route::middleware(['auth', 'doctor', 'approved'])->group(function () {
         [DoctorAppointmentController::class, 'index']
     )->name('appointments.index');
 
+    // appointments approved
+    Route::patch('appointments/{id}/approve',
+    [DoctorAppointmentController::class, 'approve']
+    )->name('appointments.approve');
+
 });
 
 Route::middleware(['auth', 'patient'])->group(function () {

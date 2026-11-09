@@ -1,3 +1,15 @@
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+
+@endif
+
+@if (session('errror'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 
 <div class="container">
 
@@ -41,10 +53,21 @@
                             </p>
 
                             <p>
-                                Status:
-                                <span class="badge bg-warning text-dark">
-                                    {{ ucfirst($appointment->status) }}
-                                </span>
+
+                                @if($appointment->status === 'pending')
+
+                                    <form action="{{ route('appointments.approve', $appointment->id) }}" method="POST">
+
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <button type="submit" class="btn btn-success">
+                                            Approve Appointment
+                                        </button>
+
+                                    </form>
+
+                                @endif
                             </p>
 
                         </div>
