@@ -7,6 +7,7 @@ use App\Http\Controllers\Doctor\DashboardController as DoctorDashboardController
 use App\Http\Controllers\Patient\DashboardController as PatientDashboardController;
 use App\Http\Controllers\Patient\AppointmentController as AppointmentController;
 use App\Http\Controllers\Auth\DoctorRegistrationController as DoctorRegistrationController;
+use App\Http\Controllers\Doctor\AppointmentController as DoctorAppointmentController;
 use App\Http\Controllers\Auth\PatientRegistrationController;
 use App\Http\Controllers\Admin\DoctorController;
 use App\Http\Controllers\DoctorDirectoryController;
@@ -38,12 +39,21 @@ Route::middleware(['auth', 'doctor', 'approved'])->group(function () {
     Route::get('/doctor/dashboard', [DoctorDashboardController::class, 'index'])
         ->name('doctor.dashboard');
 
+    Route::get(
+        'doctor/appointments',
+        [DoctorAppointmentController::class, 'index']
+    )->name('appointments.index');
+
 });
 
 Route::middleware(['auth', 'patient'])->group(function () {
 
     Route::get('/patient/dashboard', [PatientDashboardController::class, 'index'])
         ->name('patient.dashboard');
+
+    // Patient appointment route
+    Route::get('/patient/appointments', [AppointmentController::class, 'index'])
+        ->name('patient.appointments.index');
 
 });
 
@@ -84,6 +94,12 @@ Route::get('/doctors', [DoctorDirectoryController::class, 'index'])
 Route::get('/doctors/{doctor}', [DoctorDirectoryController::class, 'show'])
     ->name('doctors.show');
 
+// Doctor watching appointment
+// Route::get('/doctor/appointments',
+//     [DoctorAppointmentController::class, 'index']
+// )->name('appointments.index');
+
+
 // Appointment routes
 Route::middleware(['auth', 'patient'])->group(function () {
 
@@ -95,9 +111,7 @@ Route::middleware(['auth', 'patient'])->group(function () {
 
 });
 
-// Patient appointment route
-Route::get('/patient/appointments', [AppointmentController::class, 'index'])
-    ->name('patient.appointments.index');
+
 
 
 // Patient registration
