@@ -39,4 +39,21 @@ class AppointmentController extends Controller
 
         return back()->with('success', 'Appointment approved successfully🎉!!');
     }
+
+    public function reject($id)
+    {
+        $appointment = Appointment::whereHas('doctor', function($query){
+            $query->where('user_id', auth()->id());
+        })->findOrFail($id);
+
+        if($appointment->status !== 'pending'){
+            return back()->with('error', "Only pending appointment can be rejected.");
+        }
+
+        $appointment->update([
+            'status' => 'cancelled'
+        ]);
+
+        return back()->with("success", "Appointment has been rejected.");
+    }
 }

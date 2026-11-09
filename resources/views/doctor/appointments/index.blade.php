@@ -5,11 +5,6 @@
 
 @endif
 
-@if (session('errror'))
-    <div class="alert alert-danger">
-        {{ session('error') }}
-    </div>
-@endif
 
 <div class="container">
 
@@ -66,9 +61,25 @@
                                         </button>
 
                                     </form>
+                                    <form action="{{ route('appointments.reject', $appointment->id) }}" method="POST">
+
+                                        @csrf
+                                        @method('PATCH')
+
+                                        <button type="submit" class="btn btn-success">
+                                            Reject Appointment
+                                        </button>
+
+                                    </form>
 
                                 @endif
                             </p>
+                                      
+
+                           
+
+                                    
+
 
                         </div>
 
